@@ -13,33 +13,92 @@
 	<string>N3</string>
 	<key>BBLMLanguageCode</key>
 	<string>N3</string>
+	<key>BBLMScansFunctions</key>
+	<true />
+	<key>BBLMIsCaseSensitive</key>
+	<true />
+	<key>BBLMSuffixMap</key>
+	<array>
+		<dict>
+			<key>BBLMLanguageSuffix</key>
+			<string>n3</string>
+		</dict>
+		<dict>
+			<key>BBLMLanguageSuffix</key>
+			<string>ttl</string>
+		</dict>
+		<dict>
+			<key>BBLMLanguageSuffix</key>
+			<string>NT</string>
+		</dict>
+	</array>
 
 	<!-- Not required, but there’s not much point to a language module if it doesn’t color syntax: -->
 	<key>BBLMColorsSyntax</key>
 	<true/>
 
 	<!-- Specify some keywords. This isn’t required, either,
-             but it provides something to color: -->
+			 but it provides something to color: -->
 	<key>BBLMKeywordList</key>
 	<array>
 		<string>@prefix</string>
+	</array>
+	<key>BBLMPredefinedNameList</key>
+	<array>
+			<string><![CDATA[rdf:]]></string>
+			<string><![CDATA[rdfs:]]></string>
+			<string><![CDATA[foaf:]]></string>
+			<string><![CDATA[dc:]]></string>
+			<string><![CDATA[wn:]]></string>
+			<string><![CDATA[wn30:]]></string>
+			<string><![CDATA[sumo:]]></string>
+			<string><![CDATA[schema:]]></string>
+			<string><![CDATA[xsd:]]></string>
+			<string><![CDATA[yago:]]></string>
+			<string><![CDATA[dbp:]]></string>
+			<string><![CDATA[owl:]]></string>
+			<string><![CDATA[dbo:]]></string>
+			<string><![CDATA[wn:]]></string>
+			<string><![CDATA[rss:]]></string>
+			<string><![CDATA[sc:]]></string>
+			<string><![CDATA[schema:]]></string>
+			<string><![CDATA[xmlns:]]></string>
 	</array>
 
 	<!-- You must specify the character set for keywords and identifiers. Substitute your own:  -->
 	<key>Language Features</key>
 	<dict>
 		<key>Identifier and Keyword Character Class</key>
-		<string>A-Za-z0-9_\?!#</string>
-		<key>Open Strings 1</key>
-		<string>"</string>
-		<key>Close Strings 1</key>
-		<string>"</string>
-		<key>Escape Char in Strings 1</key>
-		<string>\</string>
-		<key>End-of-line Ends Strings 1</key>
-		<true/>
-		<key>Open Line Comments</key>
-		<string>#</string>
+		<string><![CDATA[a-zA-Z0-9_%.+$@#-<>/]]></string>
+		<key>String Pattern</key>
+		<string><![CDATA[
+			(?x:
+				("(\\"|[^"\r]|\\\r)*") | (?# Double-quote)
+				('(\\'|[^'\r]|\\\r)*') | (?# Single-quote)
+				(?s:
+					<<-?(?P<delim>\w+)   (?# Here-document)
+					.*?
+					(?P=delim)
+				)
+			)
+		]]></string>
+		<key>Comment Pattern</key>
+		<string><![CDATA[
+			(?x:
+				(\<[^>]*>)
+			)
+		]]></string>
+		<key>Function Pattern</key>
+		<string><![CDATA[(?x:
+			(?P<function_name>
+					<[^>]+>
+				)
+			)
+		]]></string>
+		<key>Open Statement Blocks</key>
+		<string><![CDATA[<]]></string>
+		<key>Close Statement Blocks</key>
+		<string><![CDATA[\.]]></string>
 	</dict>
 </dict>
 </plist>
